@@ -1,0 +1,1 @@
+docker vs vagrant - https://www.ctl.io/developers/blog/post/docker-vs-vagrant
