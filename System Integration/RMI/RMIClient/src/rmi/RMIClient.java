@@ -3,25 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rmiclient;
+package rmi;
 
 /**
  *
  * @author Orchi
  */
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.rmi.Naming;
 
 public class RMIClient {
 
     private RMIClient() {}
 
     public static void main(String[] args) {
-
-        String host = (args.length < 1) ? null : args[0];
         try {
-            Registry registry = LocateRegistry.getRegistry(host);
-            Interaction stub = (Interaction) registry.lookup("Hello");
+            String key = "students";
+            Interaction stub = (Interaction) Naming.lookup(key);
             String response = stub.readData();
             System.out.println("response: " + response);
         } catch (Exception e) {
