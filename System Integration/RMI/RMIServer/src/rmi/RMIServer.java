@@ -33,7 +33,7 @@ public class RMIServer implements Interaction {
         try {
             // Retrieving MySQL data
             String myUrl = "jdbc:mysql://localhost:3306/rmi";
-            Connection conn = DriverManager.getConnection(myUrl, "root", "root");
+            Connection conn = DriverManager.getConnection(myUrl, "Halla", "Halla");
             java.sql.Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM students");
             while (rs.next()) {
