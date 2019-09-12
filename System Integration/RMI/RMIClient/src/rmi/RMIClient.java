@@ -20,7 +20,7 @@ public class RMIClient {
         try {
             String key = "students";
             Interaction stub = (Interaction) Naming.lookup(key);
-            List<Student> response = (List<Student>) stub.readData();
+            List<Student> response = stub.readData();
             System.out.println("response: " + response);
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
