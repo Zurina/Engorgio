@@ -28,10 +28,10 @@ public class RMIServer implements Interaction {
     public RMIServer() {}
 
     @Override
-    public String readData() {
-        
-        List<String> students = new ArrayList<>();
+    public List<Student> readData() {
+        List<Student> students = new ArrayList<>();
         try {
+            // Retrieving MySQL data
             String myUrl = "jdbc:mysql://localhost:3306/rmi";
             Connection conn = DriverManager.getConnection(myUrl, "root", "root");
             java.sql.Statement stmt = conn.createStatement();
@@ -39,27 +39,27 @@ public class RMIServer implements Interaction {
             while (rs.next()) {
                 String firstname = rs.getString("firstname");
                 String email = rs.getString("email");
-                students.add("Name: " + firstname + ", email: " + email);
+                students.add(new Student(firstname, email));
             }
+            
+            // Retrieving Textfile data
             File file = new File("C:\\Users\\Orchi\\Desktop\\Engorgio\\System Integration\\RMI\\students.txt"); 
             BufferedReader br = new BufferedReader(new FileReader(file)); 
             String st; 
-            while ((st = br.readLine()) != null) 
-                students.add(st);
+            while ((st = br.readLine()) != null) {
+                String[] details = st.split(" ");
+                students.add(new Student(details[0], details[1]));
+            }
         }
         catch(Exception e) {
             e.printStackTrace();
         }
-            for(String student : students) {
-                System.out.println(student);
-        }
-        return students.toString(); 
+        System.out.println(students);
+        return students; 
     }
         
     public static void main(String args[]) {
-        
         try {
-            
             registry = LocateRegistry.createRegistry(1099);
             System.out.println("RMI registry created ");
             

@@ -7,11 +7,12 @@ package rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  *
  * @author Orchi
  */
 public interface Interaction extends Remote {
-    String readData() throws RemoteException;
+    List<Student> readData() throws RemoteException;
 }

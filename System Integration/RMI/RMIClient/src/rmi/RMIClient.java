@@ -10,6 +10,7 @@ package rmi;
  * @author Orchi
  */
 import java.rmi.Naming;
+import java.util.List;
 
 public class RMIClient {
 
@@ -19,7 +20,7 @@ public class RMIClient {
         try {
             String key = "students";
             Interaction stub = (Interaction) Naming.lookup(key);
-            String response = stub.readData();
+            List<Student> response = (List<Student>) stub.readData();
             System.out.println("response: " + response);
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
