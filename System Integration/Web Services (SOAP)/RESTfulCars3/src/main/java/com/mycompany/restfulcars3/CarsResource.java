@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.restfulcars2;
+package com.mycompany.restfulcars3;
 
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.JAXBException;
