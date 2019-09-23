@@ -2,3 +2,9 @@
 /System Integration/RMI/RMIClient/build/
 /System Integration/RMI/RMIClient/dist/
 node_modules
+/System Integration/REST/RESTExample/nbproject/private/
+/System Integration/Web Services (SOAP)/WebApplication1/nbproject/private/
+/System Integration/Web Services (SOAP)/RESTfulCars/nbproject/private/
+/System Integration/Web Services (SOAP)/RESTfulCars/build/
+/System Integration/Web Services (SOAP)/RESTfulCars/dist/
+/System Integration/Web Services (SOAP)/RESTfulCars2/target/
