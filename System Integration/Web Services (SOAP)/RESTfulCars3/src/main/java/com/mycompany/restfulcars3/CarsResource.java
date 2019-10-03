@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.restfulcars2;
+package com.mycompany.restfulcars3;
 
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.JAXBException;
@@ -21,7 +21,6 @@ import javax.ws.rs.GET;
 import entities.CarType;
 import entities.Car;
 import entities.Cars;
-import java.util.ArrayList;
 import org.w3c.dom.Document;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -43,12 +42,13 @@ public class CarsResource
     @GET
     @Produces({ "application/xml" })
     public Document getXml() {
-
-        Cars cars = new Cars();
-        cars.setCars(new ArrayList<Car>());
-        cars.getCars().add(new Car(1, "AB112233", new CarType("BigSean", 7, 100.0)));
-        cars.getCars().add(new Car(2, "AB444444", new CarType("Mediumi", 5, 75.0)));
-        cars.getCars().add(new Car(3, "AB666666", new CarType("Little shit", 2, 49.0)));
+        Car[] list = {
+            new Car(1, "AB112233", new CarType("BigSean", 7, 100.0)),
+            new Car(2, "AB444444", new CarType("Mediumi", 5, 75.0)),
+            new Car(3, "AB666666", new CarType("Little shit", 2, 49.0))
+        };
+        
+        Cars cars = new Cars(list);
         
         final String xmlString = jaxbObjectToXML(cars);
         System.out.println(xmlString);
