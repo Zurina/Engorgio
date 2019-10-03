@@ -20,6 +20,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import entities.CarType;
 import entities.Car;
+import entities.Cars;
+import java.util.ArrayList;
 import org.w3c.dom.Document;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -34,11 +36,12 @@ public class CarsResource
     @GET
     @Produces({ "application/xml" })
     public Document getXml() {
-        Car[] cars = {
-            new Car(1, "AB112233", new CarType("BigSean", 7, 100.0)),
-            new Car(2, "AB444444", new CarType("Mediumi", 5, 75.0)),
-            new Car(3, "AB666666", new CarType("Little shit", 2, 49.0))
-        };
+        Cars cars = new Cars();
+        cars.setCars(new ArrayList<Car>());
+        cars.getCars().add(new Car(1, "AB112233", new CarType("BigSean", 7, 100.0)));
+        cars.getCars().add(new Car(2, "AB444444", new CarType("Mediumi", 5, 75.0)));
+        cars.getCars().add(new Car(3, "AB666666", new CarType("Little shit", 2, 49.0)));
+        
         final String xmlString = jaxbObjectToXML(cars);
         System.out.println(xmlString);
         return convertStringToXMLDocument(xmlString);
@@ -63,10 +66,10 @@ public class CarsResource
         }
     }
     
-    private static String jaxbObjectToXML(final Car[] cars) {
+    private static String jaxbObjectToXML(Cars cars) {
         String xmlString = "";
         try {
-            final JAXBContext context = JAXBContext.newInstance(Car.class);
+            final JAXBContext context = JAXBContext.newInstance(Cars.class);
             final Marshaller m = context.createMarshaller();
             m.setProperty("jaxb.formatted.output", (Object)Boolean.TRUE);
             final StringWriter sw = new StringWriter();
