@@ -1,10 +1,10 @@
 package entities;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
  
 @XmlRootElement(name = "cars")
 @XmlAccessorType (XmlAccessType.FIELD)
@@ -18,9 +18,6 @@ public class Cars
     }
  
     public void setCars(List<Car> cars) {
-
-
-    public void setCars(Car[] cars) {
         this.cars = cars;
     }
 }
