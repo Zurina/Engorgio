@@ -5,26 +5,25 @@
  */
 package sets;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  *
  * @author Orchi
  */
-public class IntersectionSet<T> implements SetInterface<T> {
+public class SubsetSet<T> implements SetInterface<T>{
     
     Set<T> first;
 
-    public IntersectionSet(Set<T> first) {
+    public SubsetSet(Set<T> first) {
         this.first = first;
     }
-
+    
     @Override
-    public boolean member(Set<T> second, T element) {
-        return first.contains(element) && second.contains(element) ? true : false;
+    public boolean member(Set<T> set, T element) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -34,10 +33,7 @@ public class IntersectionSet<T> implements SetInterface<T> {
 
     @Override
     public Set<T> intersection(Set<T> set) {
-        Set<T> all = new HashSet();
-        all.addAll(first);
-        all.addAll(set);
-        return all.stream().filter(e -> first.contains(e) && set.contains(e)).collect(Collectors.toSet());
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -52,7 +48,22 @@ public class IntersectionSet<T> implements SetInterface<T> {
 
     @Override
     public Integer compareTo(SetInterface<T> set) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Set and method for checking for subsets
+        SubsetSet<T> second = (SubsetSet<T>) set;
+       
+        int lengthDiff = first.size() - second.first.size();
+        
+        if (lengthDiff == 0) 
+            return first.containsAll(second.first) ? 0 : -2;
+        
+        else if (lengthDiff >= 1) 
+            return first.containsAll(second.first) ? 1 : -2;
+        
+        else if (lengthDiff <= -1) 
+            return second.first.containsAll(first) ? -1 : -2;
+        
+        else return 2;
     }
+
     
 }

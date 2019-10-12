@@ -15,7 +15,6 @@ public class Program {
         
         Log log = new Log();
         
-        
         log.addLog(Automaton.createLogEntryOfAction(1, Action.LOGIN));
         log.addLog(Automaton.createLogEntryOfAction(2, Action.LOGIN));
         log.addLog(Automaton.createLogEntryOfAction(3, Action.LOGIN));

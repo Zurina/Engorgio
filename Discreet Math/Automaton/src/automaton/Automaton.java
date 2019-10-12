@@ -30,8 +30,7 @@ public class Automaton {
         LogEntry logEntry = null;
         switch(action) {
             case LOGIN: {
-                boolean permitted = !StateModel.isInstanceLoggedIn(instanceId) ? true : false;
-                if (permitted) {
+                if (!StateModel.isInstanceLoggedIn(instanceId)) {
                     level = Level.INFORMATION;
                     msg = "Action: Login - Permitted";
                     StateModel.updateState(instanceId, true);
@@ -42,36 +41,32 @@ public class Automaton {
             }
             break;
             case EDIT_ITEM: {
-                boolean permitted = StateModel.isInstanceLoggedIn(instanceId) ? true : false;
-                if (permitted) {
+                if (StateModel.isInstanceLoggedIn(instanceId)) {
                     level = Level.INFORMATION;
                     msg = "Action: Edit_Item - Permitted";
                 } else {
-                    level = Level.WARNING;
+                    level = Level.ERROR;
                     msg = "Action: Edit_Item - not permitted. You're not logged in";
                 }
             }
             break;
             case LIST_ITEMS: {
-                boolean permitted = StateModel.isInstanceLoggedIn(instanceId) ? true : false;
-                
-                if (permitted) {
+                if (StateModel.isInstanceLoggedIn(instanceId)) {
                     level = Level.INFORMATION;
                     msg = "Action: List_Items - Permitted";
                 } else {
-                    level = Level.WARNING;
+                    level = Level.ERROR;
                     msg = "Action: List_Items - not permitted. You're not logged in";
                 }
             }
             break;
             case LOGOUT: {
-                boolean permitted = StateModel.isInstanceLoggedIn(instanceId) ? true : false;
-                if (permitted) {
+                if (StateModel.isInstanceLoggedIn(instanceId)) {
                     level = Level.INFORMATION;
                     msg = "Action: Logout - Permitted";
                     StateModel.updateState(instanceId, false);
                 } else {
-                    level = Level.WARNING;
+                    level = Level.ERROR;
                     msg = "Action: Logout - not permitted. You're not logged in";
                 }
             }

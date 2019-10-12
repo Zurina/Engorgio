@@ -46,7 +46,7 @@ public class ComplementSet<T> implements SetInterface<T>{
         System.out.println("The following set returned contains everything in the universe but: \n");
         Iterator it = complementSet.iterator();
         while(it.hasNext()) System.out.println(it.next());
-        return new HashSet<T>();
+        return new HashSet<T>(); // ∞
     }
 
     @Override
