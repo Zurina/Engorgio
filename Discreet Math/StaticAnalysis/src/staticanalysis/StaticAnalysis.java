@@ -28,18 +28,23 @@ public class StaticAnalysis {
                 case "{": {
 
                 }
+                break;
                 case "}": {
 
                 }
+                break;
                 case "DEF": {
                     this.definitionStatement();
                 }
+                break;
                 case "LET": {
 
                 }
+                break;
                 case "IF": {
 
                 }
+                break;
                 case "ELSE": {
 
                 }
@@ -51,14 +56,14 @@ public class StaticAnalysis {
     private void definitionStatement() {
         VSSL = VSSL.substring(VSSL.indexOf("DEF") + 4);
         String variableName = VSSL.split(":")[0];
-        String variableType = VSSL.split(" ")[1];
+        String variableType = VSSL.split(":")[1];
         // Add this to state.
 
     }
 
     private void assignmentStatement() {
         VSSL = VSSL.substring(VSSL.indexOf("LET") + 4);
-        String variableName = VSSL.split(":")[0];
+        String variableName = VSSL.split("=")[0];
         String variableType = VSSL.split(" ")[1];
 
     }
