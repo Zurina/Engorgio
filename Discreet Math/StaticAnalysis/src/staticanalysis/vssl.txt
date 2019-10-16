@@ -1,0 +1,8 @@
+DEF X: INTEGER
+IF Y < 10 THEN {
+    LET X = 100
+}
+LET Y = Y + 10
+IF Y >= 20 THEN {
+    LET X = 4711
+}

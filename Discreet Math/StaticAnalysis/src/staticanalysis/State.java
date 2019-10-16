@@ -5,10 +5,61 @@
  */
 package staticanalysis;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
 /**
  *
  * @author Orchi
  */
 public class State {
+    
+    Map<String, HashSet<Boolean>> booleans;
+    Map<String, HashSet<Integer>> integers;
+
+    public State() {
+        this.booleans = new HashMap<String, HashSet<Boolean>>();
+        this.integers = new HashMap<String, HashSet<Integer>>();
+    }
+    
+    public boolean isVariableBoolean(String name) {
+        return booleans.containsKey(name);
+    }
+    
+    public boolean isVariableInteger(String name) {
+        return integers.containsKey(name);
+    }
+    
+    public void setBoolean(String name, boolean value) {
+        if (!booleans.containsKey(name))
+            System.err.println(name + "is not defined");
+        
+        if (!booleans.get(name).contains(value))
+            booleans.get(name).add(value);
+    }
+    
+    public void setInteger(String name, Integer value) {
+        if (!integers.containsKey(name))
+            System.err.println(name + "is not defined");
+        else {
+            if (!integers.get(name).contains(value))
+                integers.get(name).add(value);
+        }
+    }
+    
+    public void defineBoolean(String name) {
+        if (booleans.containsKey(name))
+            System.err.println(name + "is already defined");
+        
+            booleans.put(name, new HashSet<Boolean>());
+    }
+    
+    public void defineInteger(String name) {
+        if (integers.containsKey(name))
+            System.err.println(name + "is already defined");
+        
+            integers.put(name, new HashSet<Integer>());
+    }
     
 }

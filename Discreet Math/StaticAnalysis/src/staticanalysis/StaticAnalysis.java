@@ -5,6 +5,8 @@
  */
 package staticanalysis;
 
+import java.io.File;
+
 /**
  *
  * @author Orchi
@@ -15,7 +17,10 @@ public class StaticAnalysis {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        String filePath = new File("").getAbsolutePath();
+        filePath += "\\src\\staticanalysis\\vssl.txt";
+        String vssl = ReadVSSLFile.readFile(filePath);
+        
     }
     
 }
