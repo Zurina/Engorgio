@@ -21,38 +21,31 @@ public class StaticAnalysis {
 //     LET X = 4711
 //     }
     public void analyseProgram() {
-
-        while (VSSL.length() > 0) {
-
-            String nextVSSLStatement = VSSL.split(" ")[0];
-
-            switch (nextVSSLStatement) {
-                case "{": {
-
-                }
-                break;
-                case "}": {
-
-                }
-                break;
-                case "DEF": {
-                    this.definitionStatement(nextVSSLStatement);
-                }
-                break;
-                case "LET": {
-                    
-                }
-                break;
-                case "IF": {
-
-                }
-                break;
-                case "ELSE": {
-
-                }
+        
+        String[] lines = VSSL.split("\n");
+        
+        for (int i = 0; i < lines.length; i++) {
+            String nextVSSLStatement = lines[i];
+            
+            if (nextVSSLStatement.startsWith("DEF")) {
+                
+            }
+            else if (nextVSSLStatement.startsWith("LET")) {
+                
+            }
+            else if (nextVSSLStatement.startsWith("IF")) {
+                
+            }
+            else if ((nextVSSLStatement.startsWith("ELSE"))) {
+                
+            }
+            else if (nextVSSLStatement.startsWith("}")) {
+                
+            }
+            else {
+                System.out.println("SYNTAX INCORRECT PUTA!!!");
             }
         }
-
     }
 
     private void definitionStatement(String nextVSSLLine) {
