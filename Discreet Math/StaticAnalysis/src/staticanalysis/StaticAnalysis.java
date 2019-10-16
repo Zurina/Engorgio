@@ -1,5 +1,7 @@
 package staticanalysis;
 
+import jdk.nashorn.internal.runtime.regexp.RegExp;
+
 public class StaticAnalysis {
 
     State state;
@@ -34,7 +36,7 @@ public class StaticAnalysis {
                 }
                 break;
                 case "DEF": {
-                    this.definitionStatement();
+                    this.definitionStatement(nextVSSLStatement);
                 }
                 break;
                 case "LET": {
@@ -53,15 +55,20 @@ public class StaticAnalysis {
 
     }
 
-    private void definitionStatement() {
-        VSSL = VSSL.substring(VSSL.indexOf("DEF") + 4);
-        String variableName = VSSL.split(":")[0];
-        String variableType = VSSL.split(":")[1];
-        // Add this to state.
+    private void definitionStatement(String nextVSSLLine) {
+        String regex = "(DEF) ([A-Z])* : ((BOOLEAN)|(INTEGER))";
+        if (nextVSSLLine.matches(regex)) {
+
+            VSSL = VSSL.substring(VSSL.indexOf("DEF") + 4);
+            String variableName = VSSL.split(":")[0];
+            String variableType = VSSL.split(":")[1];
+            // Add this to state.
+        }
 
     }
 
     private void assignmentStatement() {
+
         VSSL = VSSL.substring(VSSL.indexOf("LET") + 4);
         String variableName = VSSL.split("=")[0];
         String variableType = VSSL.split(" ")[1];
