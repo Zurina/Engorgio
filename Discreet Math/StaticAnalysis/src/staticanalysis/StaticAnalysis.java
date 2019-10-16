@@ -38,7 +38,7 @@ public class StaticAnalysis {
                 }
                 break;
                 case "LET": {
-
+                    
                 }
                 break;
                 case "IF": {

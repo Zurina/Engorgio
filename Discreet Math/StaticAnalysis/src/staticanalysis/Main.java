@@ -18,7 +18,6 @@ public class Main {
         String filePath = new File("").getAbsolutePath();
         filePath += "\\src\\staticanalysis\\vssl.txt";
         String vssl = ReadVSSLFile.readFile(filePath);
-        
     }
     
 }
