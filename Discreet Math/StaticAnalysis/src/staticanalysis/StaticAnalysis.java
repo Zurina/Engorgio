@@ -26,7 +26,7 @@ public class StaticAnalysis {
         // der slutter med {, så de to linjer ligesom danner et par :-D 
         for (int i = 0; i < lines.length; i++) {
             String VSSLLine = lines[i];
-
+            System.out.println("hej");
             if (VSSLLine.startsWith("DEF")) {
 
             } else if (VSSLLine.startsWith("LET")) {
@@ -41,6 +41,7 @@ public class StaticAnalysis {
                 System.out.println("SYNTAX INCORRECT!!!");
             }
         }
+        state.toString();
     }
 
     private void statement(String nextVSSLLine, String assigningToVar) throws Exception {
@@ -137,14 +138,6 @@ public class StaticAnalysis {
         } else {
             throw new Exception("The LET syntax is invalid");
         }
-    }
-
-    private void ifStatement() {
-
-    }
-
-    private void elseStatement() {
-
     }
 
 }

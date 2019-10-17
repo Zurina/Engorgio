@@ -77,5 +77,11 @@ public class State {
         if (value != null) 
             integers.get(name).add(value);
     }
+
+    @Override
+    public String toString() {
+        return "State{" + "booleans=" + booleans.toString() + ", integers=" + integers.toString() + '}';
+    }
+    
     
 }
