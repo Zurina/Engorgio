@@ -62,9 +62,9 @@ public class StaticAnalysis {
             variableType = variableType.substring(1); // remove space between : and type
             
             if (variableType.equals("INTEGER"))
-                state.defineInteger(variableName);
+                state.defineInteger(variableName, null);
             else
-                state.defineBoolean(variableName);
+                state.defineBoolean(variableName, null);
         }
     }
 

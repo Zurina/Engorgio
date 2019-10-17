@@ -31,7 +31,7 @@ public class State {
         return integers.containsKey(name);
     }
     
-    public void setBoolean(String name, boolean value) {
+    public void putBoolean(String name, boolean value) {
         if (!booleans.containsKey(name))
             System.err.println(name + "is not defined");
         
@@ -39,7 +39,7 @@ public class State {
             booleans.get(name).add(value);
     }
     
-    public void setInteger(String name, Integer value) {
+    public void putInteger(String name, Integer value) {
         if (!integers.containsKey(name))
             System.err.println(name + "is not defined");
         else {
@@ -48,18 +48,22 @@ public class State {
         }
     }
     
-    public void defineBoolean(String name) {
+    public void defineBoolean(String name, Boolean value) {
         if (booleans.containsKey(name))
             System.err.println(name + "is already defined");
         
-            booleans.put(name, new HashSet<Boolean>());
+        booleans.put(name, new HashSet<Boolean>());
+        if (value != null) 
+            booleans.get(name).add(value);
     }
     
-    public void defineInteger(String name) {
+    public void defineInteger(String name, Integer value) {
         if (integers.containsKey(name))
             System.err.println(name + "is already defined");
         
-            integers.put(name, new HashSet<Integer>());
+        integers.put(name, new HashSet<Integer>());
+        if (value != null) 
+            integers.get(name).add(value);
     }
     
 }
