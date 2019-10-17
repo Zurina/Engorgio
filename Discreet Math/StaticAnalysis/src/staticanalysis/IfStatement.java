@@ -78,14 +78,6 @@ public class IfStatement {
         return result;
     }
     
-    public static Integer castObjectToInteger(Object obj) {
-        return (Integer) obj;
-    }
-    
-    public static Boolean castObjectToBoolean(Object obj) {
-        return (Boolean) obj;
-    }
-    
     public static Object interpretElement(String element, State state) throws Exception{
         String stringRegex = "([A-Za-z])*";
         String intRegex = "([0-9])*";
