@@ -38,12 +38,12 @@ public class StaticAnalysis {
             } else if (VSSLLine.startsWith("}")) {
 
             } else {
-                System.out.println("SYNTAX INCORRECT PUTA!!!");
+                System.out.println("SYNTAX INCORRECT!!!");
             }
         }
     }
 
-    private void statement(String nextVSSLLine, String assigningToVar) {
+    private void statement(String nextVSSLLine, String assigningToVar) throws Exception {
         // Y + 10
         String[] statementParts = nextVSSLLine.split(" ");
 
@@ -54,6 +54,11 @@ public class StaticAnalysis {
             if (variableName.equalsIgnoreCase(assigningToVar)) {
                 // check if already exists as bool
                 if (state.booleans.get(variableName) != null) {
+                    Boolean firstOprand = state.getValueOfBoolVariable(variableName);
+                    String operator = statementParts[1];
+                    Boolean secondOprand = statementParts[2].equals("true");
+//                    Boolean newVarValue = // TODO : add bool calculation 
+//                    state.putBoolean(variableName, newVarValue);
 
                     // check if already exists as int
                 } else if (state.integers.get(variableName) != null) {
@@ -61,46 +66,42 @@ public class StaticAnalysis {
                     int firstOprand = state.getValueOfIntVariable(variableName) != null ? state.getValueOfIntVariable(variableName) : 0;
                     String operator = statementParts[1];
                     int secondOprand = Integer.parseInt(statementParts[2]);
-                    int newVarValue = this.calculateInteger(firstOprand, operator, secondOprand);
+                    int newVarValue = IntegerCalculator.calculateInteger(firstOprand, operator, secondOprand);
                     state.putInteger(variableName, newVarValue);
                 }
 
             } else {
+                // check if already exists as bool
+                if (state.booleans.get(variableName) != null) {
+                    Boolean firstOprand = state.getValueOfBoolVariable(variableName);
+                    String operator = statementParts[1];
+                    Boolean secondOprand = statementParts[2].equals("true");
+////                    String newVarValue = // TODO : add bool calculation 
+////                    state.putBoolean(assigningToVar, newVarValue);
+
+                    // check if already exists as int
+                } else if (state.integers.get(variableName) != null) {
+                    // get values and calculate new var value for state
+                    int firstOprand = state.getValueOfIntVariable(variableName) != null ? state.getValueOfIntVariable(variableName) : 0;
+                    String operator = statementParts[1];
+                    int secondOprand = Integer.parseInt(statementParts[2]);
+                    int newVarValue = IntegerCalculator.calculateInteger(firstOprand, operator, secondOprand);
+                    // assign to the LET value
+                    state.putInteger(assigningToVar, newVarValue);
+                }
 
             }
-        } // if first part of statement is a number / constant
-        else if (statementParts[0].matches("[0-9]*")) {
-
+            // if first part of statement is a number / constant
+        } else if (statementParts[0].matches("[0-9]*")) {
+            // assign value to int
+            state.putInteger(assigningToVar, Integer.parseInt(statementParts[0]));
+        } else if ("true".equals(statementParts[0]) || "false".equals(statementParts[0])) {
+            // assign value to boolean if none other criteria matches
+            state.putBoolean(assigningToVar, "true".equals(statementParts[0]));
         } else {
-
+            throw new Exception("Something does not match statement syntax");
         }
 
-    }
-
-    private int calculateInteger(int firstOprand, String operator, int secondOprand) {
-        int result = 0;
-        switch (operator) {
-            case "+": {
-                result = firstOprand + secondOprand;
-            }
-            break;
-            case "-": {
-                result = firstOprand - secondOprand;
-            }
-            break;
-            case "/": {
-                result = firstOprand / secondOprand;
-            }
-            break;
-            case "*": {
-                result = firstOprand * secondOprand;
-            }
-            break;
-            default:
-                result = 0;
-
-        }
-        return result;
     }
 
     private void definitionStatement(String nextVSSLLine) throws Exception {
@@ -131,8 +132,8 @@ public class StaticAnalysis {
 
             VSSL = VSSL.substring(VSSL.indexOf("LET") + 4);
             String variableName = VSSL.split("=")[0];
-            String variableType = VSSL.split(" ")[1].substring(1); // remove space between = and statement
-
+            String statement = VSSL.split(" ")[1].substring(1); // remove space between = and statement
+            statement(statement, variableName);
         } else {
             throw new Exception("The LET syntax is invalid");
         }
