@@ -21,20 +21,69 @@ public class IfStatement {
             nextVSSLLine = nextVSSLLine.substring(3); 
             String[] elements = nextVSSLLine.split(" ");
             
-            String stringRegex = "([A-Za-z])*";
-            String intRegex = "([0-9])*";
-            
             e1 = interpretElement(elements[0], state);
             e2 = interpretElement(elements[2], state);
             
-            switch (elements[1]) {
+            String e1ClassName = e1.getClass().getSimpleName();
+            String e2ClassName = e2.getClass().getSimpleName();
+            
+            Boolean result = booleanCalculator(e1, e2, elements[1]);
+        }
+    }
+    
+    public static Boolean booleanCalculator(Object e1, Object e2, String operator) throws Exception {
+        String e1ClassName = e1.getClass().getSimpleName();
+        String e2ClassName = e2.getClass().getSimpleName();
+        Boolean result = false;
+        if (e1ClassName.equals("Integer") && e2ClassName.equals("Integer")) {
+            Integer element1 = (Integer) e1;
+            Integer element2 = (Integer) e2;
+            switch (operator) {
                 case "<": {
-                    
+                    result = element1 < element2;
                 }
                 break;
+                case ">": {
+                    result = element1 > element2;
+                }
+                break;
+                case "<=": {
+                    result = element1 <= element2;
+                }
+                break;
+                case ">=": {
+                    result = element1 >= element2;
+                }
+                break;
+                case "==": {
+                    result = element1 == element2;
+                }
+                break;
+                default: {
+                    System.err.println("You somehow got passed my regex for operators..");
+                }
             }
-            
         }
+        else if (e1ClassName.equals("Boolean") && e2ClassName.equals("Boolean")) {
+            Boolean element1 = (Boolean) e1;
+            Boolean element2 = (Boolean) e2;
+            if (operator.equals("=="))
+                result = element1 == element2;
+            else
+                throw new Exception(operator + " is not fit for comapring booleans");
+        }
+        else 
+            throw new Exception("Unable to compare types: " + e1ClassName + " & " + e2ClassName);
+        
+        return result;
+    }
+    
+    public static Integer castObjectToInteger(Object obj) {
+        return (Integer) obj;
+    }
+    
+    public static Boolean castObjectToBoolean(Object obj) {
+        return (Boolean) obj;
     }
     
     public static Object interpretElement(String element, State state) throws Exception{
@@ -51,6 +100,12 @@ public class IfStatement {
                 e = (Integer) state.getValueOfIntVariable(element);
                 if (e == null) throw new NullPointerException();
             }
+            else if (element.equals("true")) 
+                e = (Boolean) true;
+            
+            else if (element.equals("false")) 
+                e = (Boolean) false;
+            
             else 
                 throw new Exception(element + " is undefined");
         }
@@ -63,4 +118,15 @@ public class IfStatement {
         
         return e;
     }
+    
+    public static void main(String[] args) throws Exception {
+        Object e1;
+        Object e2;
+        
+        e1 = interpretElement("true", new State());
+        e2 = interpretElement("true", new State());
+        
+        System.out.println(booleanCalculator(e1, e2, "=="));
+    }
+    
  }
