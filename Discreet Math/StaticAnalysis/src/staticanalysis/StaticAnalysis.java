@@ -43,7 +43,67 @@ public class StaticAnalysis {
         }
     }
 
-    private void definitionStatement(String nextVSSLLine) {
+    private void statement(String nextVSSLLine, String assigningToVar) {
+        // Y + 10
+        String[] statementParts = nextVSSLLine.split(" ");
+
+        // If first part of statement is a variable
+        if (statementParts[0].matches("[A-Z]*")) {
+            String variableName = statementParts[0];
+            // if the variable matches the one being assigned
+            if (variableName.equalsIgnoreCase(assigningToVar)) {
+                // check if already exists as bool
+                if (state.booleans.get(variableName) != null) {
+
+                    // check if already exists as int
+                } else if (state.integers.get(variableName) != null) {
+                    // get values and calculate new var value for state
+//                   int firstOprand = state.integers.get(variableName); // TODO: needs to apply new logic
+                   String operator = statementParts[1];
+                   int secondOprand = Integer.parseInt(statementParts[2]);
+//                   int newVarValue = this.calculateInteger(firstOprand, operator, secondOprand);
+//                   state.putInteger(variableName, newVarValue);
+                }
+
+            } else {
+
+            }
+        } // if first part of statement is a number / constant
+        else if (statementParts[0].matches("[0-9]*")) {
+
+        } else {
+
+        }
+
+    }
+
+    private int calculateInteger(int firstOprand, String operator, int secondOprand) {
+        int result = 0;
+        switch (operator) {
+            case "+": {
+                result = firstOprand + secondOprand;
+            }
+            break;
+            case "-": {
+                result = firstOprand - secondOprand;
+            }
+            break;
+            case "/": {
+                result = firstOprand / secondOprand;
+            }
+            break;
+            case "*": {
+                result = firstOprand * secondOprand;
+            }
+            break;
+            default:
+                result = 0;
+
+        }
+        return result;
+    }
+
+    private void definitionStatement(String nextVSSLLine) throws Exception {
         String regex = "(DEF) ([A-Z])* : ((BOOLEAN)|(INTEGER))";
         if (nextVSSLLine.matches(regex)) {
 
@@ -55,9 +115,9 @@ public class StaticAnalysis {
             variableType = variableType.substring(1); // remove space between : and type
 
             if (variableType.equals("INTEGER")) {
-                state.defineInteger(variableName);
+                state.defineInteger(variableName, null);
             } else {
-                state.defineBoolean(variableName);
+                state.defineBoolean(variableName, null);
             }
         } else {
             throw new Exception("The DEF syntax is invalid");
@@ -71,7 +131,7 @@ public class StaticAnalysis {
 
             VSSL = VSSL.substring(VSSL.indexOf("LET") + 4);
             String variableName = VSSL.split("=")[0];
-            String variableType = VSSL.split(" ")[1];
+            String variableType = VSSL.split(" ")[1].substring(1); // remove space between = and statement
 
         } else {
             throw new Exception("The LET syntax is invalid");
