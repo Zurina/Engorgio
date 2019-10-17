@@ -5,6 +5,7 @@
  */
 package staticanalysis;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -15,12 +16,12 @@ import java.util.Map;
  */
 public class State {
     
-    Map<String, HashSet<Boolean>> booleans;
-    Map<String, HashSet<Integer>> integers;
+    Map<String, ArrayList<Boolean>> booleans;
+    Map<String, ArrayList<Integer>> integers;
 
     public State() {
-        this.booleans = new HashMap<String, HashSet<Boolean>>();
-        this.integers = new HashMap<String, HashSet<Integer>>();
+        this.booleans = new HashMap<String, ArrayList<Boolean>>();
+        this.integers = new HashMap<String, ArrayList<Integer>>();
     }
     
     public boolean isVariableBoolean(String name) {
@@ -29,6 +30,15 @@ public class State {
     
     public boolean isVariableInteger(String name) {
         return integers.containsKey(name);
+    }
+    
+    public Integer getValueOfIntVariable(String name) {
+        ArrayList<Integer> list = integers.get(name);
+        return list.get(list.size() - 1);
+    }
+    public Boolean getValueOfBoolVariable(String name) {
+        ArrayList<Boolean> list = booleans.get(name);
+        return list.get(list.size() - 1);
     }
     
     public void putBoolean(String name, boolean value) {
@@ -52,7 +62,7 @@ public class State {
         if (booleans.containsKey(name))
             System.err.println(name + "is already defined");
         
-        booleans.put(name, new HashSet<Boolean>());
+        booleans.put(name, new ArrayList<Boolean>());
         if (value != null) 
             booleans.get(name).add(value);
     }
@@ -61,7 +71,7 @@ public class State {
         if (integers.containsKey(name))
             System.err.println(name + "is already defined");
         
-        integers.put(name, new HashSet<Integer>());
+        integers.put(name, new ArrayList<Integer>());
         if (value != null) 
             integers.get(name).add(value);
     }
