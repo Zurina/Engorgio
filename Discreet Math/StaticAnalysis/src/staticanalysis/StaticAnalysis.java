@@ -80,8 +80,8 @@ public class StaticAnalysis {
                     Boolean firstOprand = state.getValueOfBoolVariable(variableName);
                     String operator = statementParts[1];
                     Boolean secondOprand = statementParts[2].equals("true");
-//                    Boolean newVarValue = // TODO : add bool calculation 
-//                    state.putBoolean(variableName, newVarValue);
+                    Boolean newVarValue = IfStatement.booleanCalculator(firstOprand, secondOprand, operator);
+                    state.putBoolean(variableName, newVarValue);
 
                     // check if already exists as int
                 } else if (state.integers.get(variableName) != null) {
@@ -99,8 +99,8 @@ public class StaticAnalysis {
                     Boolean firstOprand = state.getValueOfBoolVariable(variableName);
                     String operator = statementParts[1];
                     Boolean secondOprand = statementParts[2].equals("true");
-////                    String newVarValue = // TODO : add bool calculation 
-////                    state.putBoolean(assigningToVar, newVarValue);
+                    Boolean newVarValue = IfStatement.booleanCalculator(firstOprand, secondOprand, operator);
+                    state.putBoolean(assigningToVar, newVarValue);
 
                     // check if already exists as int
                 } else if (state.integers.get(variableName) != null) {
