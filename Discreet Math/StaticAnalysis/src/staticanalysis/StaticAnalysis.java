@@ -1,6 +1,5 @@
 package staticanalysis;
 
-import jdk.nashorn.internal.runtime.regexp.RegExp;
 
 public class StaticAnalysis {
 
