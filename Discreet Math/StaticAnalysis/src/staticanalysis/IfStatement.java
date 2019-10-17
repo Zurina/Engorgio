@@ -24,9 +24,6 @@ public class IfStatement {
             e1 = interpretElement(elements[0], state);
             e2 = interpretElement(elements[2], state);
             
-            String e1ClassName = e1.getClass().getSimpleName();
-            String e2ClassName = e2.getClass().getSimpleName();
-            
             Boolean result = booleanCalculator(e1, e2, elements[1]);
         }
     }
