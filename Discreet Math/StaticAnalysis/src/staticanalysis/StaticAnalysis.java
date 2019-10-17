@@ -27,21 +27,21 @@ public class StaticAnalysis {
         // ved hjælp af i. fx når } er på en linje for sig, så kan man tjekke nogle linjer oppe om der er en linje
         // der slutter med {, så de to linjer ligesom danner et par :-D 
         for (int i = 0; i < lines.length; i++) {
-            String nextVSSLStatement = lines[i];
+            String VSSLLine = lines[i];
             
-            if (nextVSSLStatement.startsWith("DEF")) {
+            if (VSSLLine.startsWith("DEF")) {
                 
             }
-            else if (nextVSSLStatement.startsWith("LET")) {
+            else if (VSSLLine.startsWith("LET")) {
                 
             }
-            else if (nextVSSLStatement.startsWith("IF")) {
+            else if (VSSLLine.startsWith("IF")) {
                 
             }
-            else if ((nextVSSLStatement.startsWith("ELSE"))) {
+            else if ((VSSLLine.startsWith("ELSE"))) {
                 
             }
-            else if (nextVSSLStatement.startsWith("}")) {
+            else if (VSSLLine.startsWith("}")) {
                 
             }
             else {
