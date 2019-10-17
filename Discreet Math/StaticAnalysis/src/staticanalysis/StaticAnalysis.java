@@ -19,27 +19,50 @@ public class StaticAnalysis {
 //     LET X = 4711
 //     }
     public void analyseProgram() {
+        try {
+            String[] lines = VSSL.split("\n");
+            Boolean skipIfBlock = false;
+            Boolean skipElseBlock = true;
+            Integer blockCount = 0;
 
-        String[] lines = VSSL.split("\n");
-        // Ved ikke omd det her giver mening, men så kan man også henvise til linjer før og efter hinanden
-        // ved hjælp af i. fx når } er på en linje for sig, så kan man tjekke nogle linjer oppe om der er en linje
-        // der slutter med {, så de to linjer ligesom danner et par :-D 
-        for (int i = 0; i < lines.length; i++) {
-            String VSSLLine = lines[i];
+            for (int i = 0; i < lines.length; i++) {
+                String VSSLLine = lines[i];
+                
+                if (skipIfBlock) {
+                    VSSLLine = VSSLLine.replace(" ", "");
+                    if (VSSLLine.endsWith("}")) {
+                        blockCount--;
+                        if (blockCount == 0) 
+                            skipIfBlock = false;
+                    }
+                    else if(VSSLLine.startsWith("{")) 
+                        blockCount++;
+                }
 
-            if (VSSLLine.startsWith("DEF")) {
+                if (VSSLLine.startsWith("DEF")) {
 
-            } else if (VSSLLine.startsWith("LET")) {
+                } else if (VSSLLine.startsWith("LET")) {
 
-            } else if (VSSLLine.startsWith("IF")) {
+                } else if (VSSLLine.startsWith("IF")) {
+                    Boolean truly = IfStatement.analyze(VSSLLine, state);
+                    
+                    if(!truly) {
+                        skipIfBlock = true;
+                        skipElseBlock = false;
+                        blockCount++;
+                    }
+                    
+                } else if (VSSLLine.startsWith("ELSE") && !skipElseBlock && blockCount == 0) {
 
-            } else if ((VSSLLine.startsWith("ELSE"))) {
+                } else if (VSSLLine.startsWith("}")) {
 
-            } else if (VSSLLine.startsWith("}")) {
-
-            } else {
-                System.out.println("SYNTAX INCORRECT!!!");
+                } else {
+                    System.out.println("SYNTAX INCORRECT!!!");
+                }
             }
+        }
+        catch(Exception e) {
+            System.err.println(e.getMessage());
         }
     }
 

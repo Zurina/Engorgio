@@ -11,7 +11,8 @@ package staticanalysis;
  */
 public class IfStatement {
     
-    public static void analyze(String nextVSSLLine, State state) throws Exception {
+    public static boolean analyze(String nextVSSLLine, State state) throws Exception {
+        Boolean result = false;
         String regex = "(IF) ([A-Za-z0-9])* (<=|>=|<|>|==) ([A-Za-z0-9])* (THEN) {";
         if (nextVSSLLine.matches(regex)) {
             
@@ -24,8 +25,9 @@ public class IfStatement {
             e1 = interpretElement(elements[0], state);
             e2 = interpretElement(elements[2], state);
             
-            Boolean result = booleanCalculator(e1, e2, elements[1]);
+            result = booleanCalculator(e1, e2, elements[1]);
         }
+        return result;
     }
     
     public static Boolean booleanCalculator(Object e1, Object e2, String operator) throws Exception {
