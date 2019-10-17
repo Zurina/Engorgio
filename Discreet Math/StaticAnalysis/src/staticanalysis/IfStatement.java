@@ -26,6 +26,7 @@ public class IfStatement {
             
             if (elements[0].matches(stringRegex)) {
                 if (state.isVariableBoolean(elements[0])) {
+                    e1 = state.getValueOfBoolVariable(elements[0]);
                 }
                 else if (state.isVariableInteger(elements[0])) {
                     
