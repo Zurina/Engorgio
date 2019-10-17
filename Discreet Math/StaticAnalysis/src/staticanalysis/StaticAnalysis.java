@@ -53,13 +53,19 @@ public class StaticAnalysis {
     private void definitionStatement(String nextVSSLLine) {
         String regex = "(DEF) ([A-Z])* : ((BOOLEAN)|(INTEGER))";
         if (nextVSSLLine.matches(regex)) {
-
-            VSSL = VSSL.substring(VSSL.indexOf("DEF") + 4);
-            String variableName = VSSL.split(":")[0];
-            String variableType = VSSL.split(":")[1];
-            // Add this to state.
+            
+            nextVSSLLine = nextVSSLLine.substring(4);
+            
+            String variableName = nextVSSLLine.split(":")[0];
+            variableName = variableName.substring(0, variableName.length() - 1); // remove space between variable and :
+            String variableType = nextVSSLLine.split(":")[1];
+            variableType = variableType.substring(1); // remove space between : and type
+            
+            if (variableType.equals("INTEGER"))
+                state.defineInteger(variableName);
+            else
+                state.defineBoolean(variableName);
         }
-
     }
 
     private void assignmentStatement() {
