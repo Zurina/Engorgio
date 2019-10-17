@@ -45,7 +45,7 @@ public class State {
     
     public void putBoolean(String name, boolean value) {
         if (!booleans.containsKey(name))
-            System.err.println(name + "is not defined");
+            System.err.println(name + " Boolean is not defined");
         
         if (!booleans.get(name).contains(value))
             booleans.get(name).add(value);
@@ -53,7 +53,7 @@ public class State {
     
     public void putInteger(String name, Integer value) {
         if (!integers.containsKey(name))
-            System.err.println(name + "is not defined");
+            System.err.println(name + " Integer is not defined");
         else {
             if (!integers.get(name).contains(value))
                 integers.get(name).add(value);
@@ -62,7 +62,7 @@ public class State {
     
     public void defineBoolean(String name, Boolean value) {
         if (booleans.containsKey(name))
-            System.err.println(name + "is already defined");
+            System.err.println(name + " is already defined");
         
         booleans.put(name, new ArrayList<Boolean>());
         if (value != null) 

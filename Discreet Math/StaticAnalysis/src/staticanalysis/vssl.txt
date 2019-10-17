@@ -1,8 +1,16 @@
-DEF X: INTEGER
-IF Y < 10 THEN {
+DEF X : INTEGER
+DEF Y : INTEGER
+DEF A : BOOLEAN
+
+LET Y = 11
+IF Y > 10 THEN {
     LET X = 100
 }
 LET Y = Y + 10
 IF Y >= 20 THEN {
     LET X = 4711
 }
+
+LET A = TRUE
+
+LET Y = 100

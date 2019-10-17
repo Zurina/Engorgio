@@ -21,6 +21,7 @@ public class Main {
         String vssl = ReadVSSLFile.readFile(filePath);
         System.out.println(vssl);
         StaticAnalysis sa = new StaticAnalysis(vssl);
+        sa.analyseProgram();
     }
 
 }
