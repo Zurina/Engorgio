@@ -58,11 +58,11 @@ public class StaticAnalysis {
                     // check if already exists as int
                 } else if (state.integers.get(variableName) != null) {
                     // get values and calculate new var value for state
-//                   int firstOprand = state.integers.get(variableName); // TODO: needs to apply new logic
-                   String operator = statementParts[1];
-                   int secondOprand = Integer.parseInt(statementParts[2]);
-//                   int newVarValue = this.calculateInteger(firstOprand, operator, secondOprand);
-//                   state.putInteger(variableName, newVarValue);
+                    int firstOprand = state.getValueOfIntVariable(variableName) != null ? state.getValueOfIntVariable(variableName) : 0;
+                    String operator = statementParts[1];
+                    int secondOprand = Integer.parseInt(statementParts[2]);
+                    int newVarValue = this.calculateInteger(firstOprand, operator, secondOprand);
+                    state.putInteger(variableName, newVarValue);
                 }
 
             } else {
