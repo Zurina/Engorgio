@@ -34,12 +34,12 @@ public class State {
     
     public Integer getValueOfIntVariable(String name) {
         ArrayList<Integer> list = integers.get(name);
-        if (list.size() == 0) return null;
+        if (list == null || list.isEmpty()) return null;
         return list.get(list.size() - 1);
     }
     public Boolean getValueOfBoolVariable(String name) {
         ArrayList<Boolean> list = booleans.get(name);
-        if (list.size() == 0) return null;
+        if (list == null || list.isEmpty()) return null;
         return list.get(list.size() - 1);
     }
     

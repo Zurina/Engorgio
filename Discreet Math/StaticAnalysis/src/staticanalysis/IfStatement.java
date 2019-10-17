@@ -19,28 +19,48 @@ public class IfStatement {
             Object e2;
             
             nextVSSLLine = nextVSSLLine.substring(3); 
+            String[] elements = nextVSSLLine.split(" ");
+            
             String stringRegex = "([A-Za-z])*";
             String intRegex = "([0-9])*";
             
-            String[] elements = nextVSSLLine.split(" ");
+            e1 = interpretElement(elements[0], state);
+            e2 = interpretElement(elements[2], state);
             
-            if (elements[0].matches(stringRegex)) {
-                if (state.isVariableBoolean(elements[0])) {
-                    e1 = state.getValueOfBoolVariable(elements[0]);
-                }
-                else if (state.isVariableInteger(elements[0])) {
+            switch (elements[1]) {
+                case "<": {
                     
                 }
-                else 
-                    throw new Exception(elements[0] + " is undefined");
-            }
-                
-            else if (elements[0].matches(intRegex)) {
-            
+                break;
             }
             
-            else
-                throw new Exception(elements[0] + " is neither a integer or variable");
         }
+    }
+    
+    public static Object interpretElement(String element, State state) throws Exception{
+        String stringRegex = "([A-Za-z])*";
+        String intRegex = "([0-9])*";
+        Object e;
+
+        if (element.matches(stringRegex)) {
+            if (state.isVariableBoolean(element)) {
+                e = (Boolean) state.getValueOfBoolVariable(element);
+                if (e == null) throw new NullPointerException();
+            }
+            else if (state.isVariableInteger(element)) {
+                e = (Integer) state.getValueOfIntVariable(element);
+                if (e == null) throw new NullPointerException();
+            }
+            else 
+                throw new Exception(element + " is undefined");
+        }
+
+        else if (element.matches(intRegex)) 
+            e = Integer.parseInt(element);
+
+        else
+            throw new Exception(element + " is neither a integer or variable");
+        
+        return e;
     }
  }
