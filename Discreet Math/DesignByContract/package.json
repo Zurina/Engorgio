@@ -1,0 +1,24 @@
+{
+  "name": "DesignByContract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node src/index.js",
+    "start:dev": "nodemon --exec babel-node src/index.js"
+  },
+  "keywords": [],
+  "author": "Mathias / Stanislav",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "babel-plugin-contracts": "^2.0.0",
+    "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}

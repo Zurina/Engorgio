@@ -12,12 +12,16 @@ import java.io.File;
  * @author Orchi
  */
 public class Main {
-    
+
     public static void main(String[] args) {
-        
+
         String filePath = new File("").getAbsolutePath();
-        filePath += "\\src\\staticanalysis\\vssl.txt";
+        String sep = File.separator;
+        filePath += sep + "src" + sep + "staticanalysis" + sep + "vssl.txt";
         String vssl = ReadVSSLFile.readFile(filePath);
+        System.out.println(vssl);
+        StaticAnalysis sa = new StaticAnalysis(vssl);
+        sa.analyseProgram();
     }
-    
+
 }

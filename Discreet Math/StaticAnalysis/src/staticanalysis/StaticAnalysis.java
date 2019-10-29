@@ -27,54 +27,60 @@ public class StaticAnalysis {
 
             for (int i = 0; i < lines.length; i++) {
                 String VSSLLine = lines[i];
+                String skipBlockLine;
+                
+                // Line state
+                System.out.println("line " + i + " " + state.toString());
                 
                 if (skipIfBlock) {
-                    VSSLLine = VSSLLine.replace(" ", "");
-                    if (VSSLLine.endsWith("}")) {
+                    skipBlockLine = VSSLLine.replace(" ", "");
+                    if (skipBlockLine.endsWith("}")) {
                         blockCount--;
-                        if (blockCount == 0) 
+                        if (blockCount == 0) {
                             skipIfBlock = false;
-                    }
-                    else if(VSSLLine.startsWith("{")) 
+                            skipElseBlock = true;
+                        }
+                    } else if (skipBlockLine.startsWith("{")) {
                         blockCount++;
+                    }
+                    continue;
                 }
-
                 if (VSSLLine.startsWith("DEF")) {
-
-                } else if (VSSLLine.startsWith("LET")) {
-
+                    this.definitionStatement(VSSLLine);
+                } else if (VSSLLine.contains("LET")) {
+                    this.assignmentStatement(VSSLLine);
                 } else if (VSSLLine.startsWith("IF")) {
                     Boolean truly = IfStatement.analyze(VSSLLine, state);
-                    
-                    if(!truly) {
+                    if (!truly) {
                         skipIfBlock = true;
                         skipElseBlock = false;
                         blockCount++;
                     }
-                    
+
                 } else if (VSSLLine.startsWith("ELSE") && !skipElseBlock && blockCount == 0) {
+                    System.out.println("ELSE");
 
-                } else if (VSSLLine.startsWith("}")) {
-
+                } else if (VSSLLine.isEmpty() || "}".equals(VSSLLine)) {
+                    continue;
                 } else {
                     System.out.println("SYNTAX INCORRECT!!!");
                 }
+
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+        System.out.println("FINAL STATE: " + state.toString());
     }
 
     private void statement(String nextVSSLLine, String assigningToVar) throws Exception {
-        // Y + 10
         String[] statementParts = nextVSSLLine.split(" ");
 
         // If first part of statement is a variable
         if (statementParts[0].matches("[A-Z]*")) {
             String variableName = statementParts[0];
             // if the variable matches the one being assigned
-            if (variableName.equalsIgnoreCase(assigningToVar)) {
+            if (variableName.equals(assigningToVar)) {
                 // check if already exists as bool
                 if (state.booleans.get(variableName) != null) {
                     Boolean firstOprand = state.getValueOfBoolVariable(variableName);
@@ -93,6 +99,8 @@ public class StaticAnalysis {
                     state.putInteger(variableName, newVarValue);
                 }
 
+            } else if ("TRUE".equals(variableName) || "FALSE".equals(variableName)) {
+                state.putBoolean(assigningToVar, "TRUE".equals(variableName));
             } else {
                 // check if already exists as bool
                 if (state.booleans.get(variableName) != null) {
@@ -149,25 +157,17 @@ public class StaticAnalysis {
     }
 
     private void assignmentStatement(String nextVSSLLine) throws Exception {
-        String regex = "(LET) ([A-Z])* = ";
+        String regex = ".*(LET) ([A-Z])* = .*";
 
         if (nextVSSLLine.matches(regex)) {
-
-            VSSL = VSSL.substring(VSSL.indexOf("LET") + 4);
-            String variableName = VSSL.split("=")[0];
-            String statement = VSSL.split(" ")[1].substring(1); // remove space between = and statement
+            nextVSSLLine = nextVSSLLine.substring(nextVSSLLine.indexOf("LET") + 3);
+            String variableName = nextVSSLLine.split("=")[0].replace(" ", "");
+            String statement = nextVSSLLine.split("=")[1].substring(1); // remove space between = and statement
+            // Evaluate statement and process variables
             statement(statement, variableName);
         } else {
             throw new Exception("The LET syntax is invalid");
         }
-    }
-
-    private void ifStatement() {
-
-    }
-
-    private void elseStatement() {
-
     }
 
 }

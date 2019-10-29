@@ -1,0 +1,25 @@
+{
+    "presets": [
+        "@babel/preset-env"
+    ],
+    "plugins": [
+        [
+            "contracts",
+            {
+                "env": {
+                    "production": {
+                        "strip": true
+                    }
+                },
+                "names": {
+                    "assert": "assert",
+                    "precondition": "pre",
+                    "postcondition": "post",
+                    "invariant": "invariant",
+                    "return": "it",
+                    "old": "old"
+                }
+            }
+        ]
+    ]
+}
