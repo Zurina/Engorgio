@@ -22,3 +22,6 @@ node_modules
 
 /Discreet Math/StaticAnalysis/dist/
 
+/UFO/Timer/nbproject/private/
+/UFO/Timer/build/
+/System Integration/DiscoveryServer/target/
